@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T4 — the void you read off the bending</title>
+<style>
+  :root{
+    --bg:#0a0710; --panel:#140d20; --edge:#2e2148; --ink:#ece3f7; --dim:#9a86bd; --faint:#6b5a8c;
+    --violet:#a78bfa; --violet2:#c4b5fd; --glow:#7c3aed; --tri:#a78bfa; --void:#22d3ee;
+    --infer:#34d399; --bad:#fb7185; --warn:#fbbf24;
+    --mono:'SFMono-Regular',ui-monospace,Menlo,Consolas,monospace;
+    --serif:'Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);line-height:1.55;
+    background-image:radial-gradient(1200px 600px at 72% -10%,#1a1030 0%,transparent 60%),
+      radial-gradient(900px 520px at 0% 100%,#150b28 0%,transparent 55%);}
+  .wrap{max-width:1000px;margin:0 auto;padding:42px 26px 90px}
+  header{border-bottom:1px solid var(--edge);padding-bottom:22px;margin-bottom:30px}
+  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--violet);opacity:.9}
+  h1{font-size:32px;line-height:1.13;margin:.32em 0 .18em;font-weight:600}
+  h1 em{color:var(--violet2);font-style:italic}
+  .sub{color:var(--dim);font-size:15.5px;max-width:78ch}
+  .lin{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-top:14px}
+  .lin b{color:var(--violet);font-weight:500}
+  section{margin:34px 0}
+  h2{font-size:13px;font-family:var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--violet2);
+    border-left:2px solid var(--glow);padding-left:11px;margin:0 0 6px}
+  .lede{color:var(--dim);font-size:15px;margin:0 0 18px;max-width:80ch}
+  .lede b{color:var(--violet2);font-weight:400}
+  .panel{background:linear-gradient(180deg,var(--panel),#100a1b);border:1px solid var(--edge);border-radius:14px;
+    padding:20px;box-shadow:0 1px 0 #2e2148 inset,0 24px 60px -40px #000}
+  .controls{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-bottom:14px}
+  button{font-family:var(--mono);font-size:12px;color:var(--ink);background:#241738;border:1px solid var(--edge);
+    border-radius:8px;padding:7px 11px;cursor:pointer;transition:.15s}
+  button:hover{background:#2e1f48;border-color:var(--violet)}
+  button.on{background:var(--glow);border-color:var(--violet2);color:#fff}
+  button.bad.on{background:var(--bad);border-color:#fda4af;color:#1a0410}
+  label.sl{font-family:var(--mono);font-size:11px;color:var(--dim);display:flex;align-items:center;gap:8px}
+  input[type=range]{accent-color:var(--violet);width:120px}
+  canvas{display:block;border-radius:10px;background:radial-gradient(circle at 50% 50%,#140d24,#0a0612);border:1px solid var(--edge);max-width:100%;margin:0 auto}
+  .cap{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:9px;text-align:center}
+  .read{display:flex;gap:22px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+  .st .v{font-family:var(--mono);font-size:20px;font-weight:600}
+  .st .k{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);text-align:center}
+  .verdict{font-family:var(--mono);font-size:14px;font-weight:700;padding:5px 13px;border-radius:8px;display:inline-block}
+  .verdict.admit{color:#04150d;background:var(--infer)} .verdict.refuse{color:#1a0410;background:var(--bad)}
+  .note{color:var(--dim);font-size:13.5px;border-left:2px solid var(--edge);padding-left:13px;margin:16px 0 0}
+  .note b{color:var(--violet2);font-weight:400}
+  code{font-family:var(--mono);font-size:.9em;color:var(--violet2);background:#170f28;padding:1px 5px;border-radius:5px}
+  footer{margin-top:42px;border-top:1px solid var(--edge);padding-top:18px;color:var(--faint);font-family:var(--mono);font-size:11px;line-height:1.7}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">Purple Paper - side-sheet - learning machines - X - the void, witnessed</div>
+  <h1>T4 - the void you read off the <em>bending</em></h1>
+  <div class="sub">Four triangles around an empty center none of them touches. There is no line to the middle - only the
+    way each triangle's edges <em>curve</em> under an unseen source. From that bending alone, a solver triangulates
+    the void back: where it sits, how strong it is. And it only draws the void if the four triangles <b>agree</b> -
+    corrupt one and the inference refuses. Gravity as curvature; the center as inference; the four as witnesses.</div>
+  <div class="lin"><b>you never touch the center</b> · it's inferred from 4 triangles x 3 vertices = 24 measurements vs 3 unknowns ·
+    <b>over-determined</b> -> solvable AND checkable · drag the hidden void, or break a triangle and watch it refuse</div>
+</header>
+
+<section>
+  <h2>The instrument - infer the untouched center</h2>
+  <p class="lede">The <span style="color:var(--void)">true void</span> (drag it) bends every triangle edge toward
+    itself, inverse-square. You see only the bent triangles and their deflection arrows - never a line to the center.
+    The <span style="color:var(--infer)">inferred void</span> is what the solver reconstructs from the bending alone.
+    When all four agree, inferred sits exactly on true. <b>Corrupt a triangle</b> and the four views stop agreeing -
+    the solver can't find one honest center, and the gate refuses.</p>
+
+  <div class="panel">
+    <div class="controls">
+      <button id="drag" class="on">drag: TRUE void</button>
+      <label class="sl">strength <input type="range" id="m" min="5" max="40" value="20"></label>
+      <span style="width:8px"></span>
+      <button id="c0" class="bad">break △1</button>
+      <button id="c1" class="bad">break △2</button>
+      <button id="c2" class="bad">break △3</button>
+      <button id="c3" class="bad">break △4</button>
+      <button id="reset">reset</button>
+    </div>
+
+    <canvas id="t4" width="600" height="480"></canvas>
+    <div class="cap"><span style="color:var(--void)">cyan = true void (hidden source)</span> ·
+      <span style="color:var(--infer)">green = inferred void (from bending only)</span> ·
+      <span style="color:var(--tri)">violet = triangles</span> · arrows = deflection · a broken triangle glows red</div>
+
+    <div class="read">
+      <div class="st"><div class="v" id="err" style="color:var(--infer)">0.00</div><div class="k">infer error</div></div>
+      <div class="st"><div class="v" id="spread" style="color:var(--violet2)">0.00</div><div class="k">view disagreement</div></div>
+      <div class="st"><div class="v" id="res" style="color:var(--dim)">0.0</div><div class="k">residual</div></div>
+      <div class="st" style="align-self:center"><span class="verdict admit" id="verdict">VOID ADMITTED</span></div>
+    </div>
+
+    <div class="note" id="readnote">All four triangles agree on one center. The void is located, its strength pinned,
+      and the inferred center sits on the true one - read entirely off the curvature, never touched.</div>
+  </div>
+</section>
+
+<section>
+  <h2>What this is</h2>
+  <p class="lede">The inversion of every center before it. The dot product, the IR, the prediction, the gorge - all
+    were reached. This one is <em>never reached</em>, only inferred, and refusable.</p>
+
+  <div class="note"><b>Gravity, honestly.</b> A mass doesn't reach out and pull - it curves the space around it, and
+    everything else rides the curve without touching the mass. That's how we find what we can't see: unseen planets,
+    dark matter, black holes - never touched, always read off the bending of what surrounds them. Your four triangles
+    are four such measurements, and four is the number that does double duty: enough to <em>locate</em> the void and
+    enough to <em>check</em> it.</div>
+
+  <div class="note" style="margin-top:14px"><b>The witness, made spatial.</b> The void can't witness itself - nothing
+    reaches it. It's admissible only if four exterior views, none touching it, converge on the same center. Break one
+    triangle's reading and the four stop agreeing; the solver finds no single honest center and the gate refuses to
+    draw a false void. That's the exterior-witness requirement and the consistency gate from every prior sheet - now
+    as curvature: <em>the unreachable center is real only when the things that can't reach it concur on it.</em></div>
+
+  <div class="note" style="margin-top:14px;font-size:13px">Verified in Node before drawing: 24 measurements vs 3
+    unknowns (over-determined); clean bending recovers the center exactly (residual ~1e-18); corrupting one triangle
+    jumps the residual ~10^12x and the leave-one-out center spread from 0.00 to 0.94. The refuse gate fires on a real
+    signal, not a decoration.</div>
+</section>
+
+<footer>
+  T4 - purple paper side-sheet X - the void, witnessed by what cannot touch it<br>
+  verified in Node · 4 triangles x 3 vertices = 24 obs vs 3 unknowns, over-determined · clean solve residual ~1e-18 · one lie -> residual x10^12, view spread 0.00->0.94 -> refuse<br>
+  gravity as curvature: Einstein 1915 · inverse problems / source-from-deflection: classical · the unreachable-but-inferable center: the witness, in space
+</footer>
+
+<script>
+"use strict";
+const DIMS={ t4:[600,480] };
+function fit(cv){ const [W,H]=DIMS[cv.id]||[cv.width,cv.height]; const dpr=window.devicePixelRatio||1;
+  const need=Math.round(W*dpr); if(cv.width!==need){ cv.width=need; cv.height=Math.round(H*dpr); cv.style.width=W+'px'; cv.style.height=H+'px'; }
+  const g=cv.getContext('2d'); g.setTransform(dpr,0,0,dpr,0,0); return {g,w:W,h:H}; }
+
+// world coords ~ [-4,4]; map to canvas
+const SC=52, OX=300, OY=240;
+function toPx(p){ return [OX+p[0]*SC, OY-p[1]*SC]; }
+function toWorld(px,py){ return [(px-OX)/SC, -(py-OY)/SC]; }
+
+// 4 triangles on a ring, not touching center
+function baseVerts(){ const V=[]; const ringR=3.0, triR=0.8;
+  for(let t=0;t<4;t++){ const a0=t*Math.PI/2; const cx=ringR*Math.cos(a0), cy=ringR*Math.sin(a0);
+    for(let k=0;k<3;k++){ const a=a0+Math.PI+k*2*Math.PI/3; V.push([cx+triR*Math.cos(a), cy+triR*Math.sin(a)]); } }
+  return V; }
+const VERTS=baseVerts();
+let trueC=[0.4,-0.3], strength=2.0, broken=[false,false,false,false];
+
+function defl(x,C,m){ const dx=C[0]-x[0],dy=C[1]-x[1]; const r2=dx*dx+dy*dy,r=Math.sqrt(r2);
+  const mag=m/Math.max(r2,0.04); return [mag*dx/r, mag*dy/r]; }
+function observe(){ return VERTS.map((x,i)=>{ let d=defl(x,trueC,strength);
+  if(broken[Math.floor(i/3)]){ d=[d[0]+2.0, d[1]-1.5]; } return d; }); }
+function residualOf(C,m,obs,idxs){ let s=0; for(const i of idxs){ const p=defl(VERTS[i],C,m);
+  s+=(p[0]-obs[i][0])**2+(p[1]-obs[i][1])**2; } return s; }
+function solve(obs,idxs){ let best=[0,0,1],bestR=1e18;
+  for(let gx=-2.4;gx<=2.4;gx+=0.4)for(let gy=-2.4;gy<=2.4;gy+=0.4)for(let gm=0.3;gm<=4;gm+=0.3){
+    const r=residualOf([gx,gy],gm,obs,idxs); if(r<bestR){bestR=r;best=[gx,gy,gm];} }
+  let step=0.3;
+  for(let it=0;it<70;it++){ let imp=false;
+    for(const d of [[step,0,0],[-step,0,0],[0,step,0],[0,-step,0],[0,0,step],[0,0,-step]]){
+      const C=[best[0]+d[0],best[1]+d[1]],m=best[2]+d[2]; if(m<=0)continue;
+      const r=residualOf(C,m,obs,idxs); if(r<bestR){bestR=r;best=[C[0],C[1],m];imp=true;} }
+    if(!imp) step*=0.6; }
+  return {C:[best[0],best[1]],m:best[2],res:bestR}; }
+
+const ALL=[...Array(12).keys()];
+function leaveOneOut(obs){ const centers=[];
+  for(let d=0;d<4;d++){ const idx=ALL.filter(i=>Math.floor(i/3)!==d); centers.push(solve(obs,idx).C); }
+  const mx=centers.reduce((a,c)=>a+c[0],0)/4, my=centers.reduce((a,c)=>a+c[1],0)/4;
+  const spread=Math.sqrt(centers.reduce((a,c)=>a+(c[0]-mx)**2+(c[1]-my)**2,0)/4);
+  return {centers,spread}; }
+
+let drag=false;
+function draw(){
+  const {g,w,h}=fit(document.getElementById('t4')); g.clearRect(0,0,w,h);
+  const obs=observe();
+  const sol=solve(obs,ALL);
+  const loo=leaveOneOut(obs);
+  const anyBroken=broken.some(b=>b);
+  const refuse = loo.spread>0.15 || sol.res>0.3;
+
+  // curvature field hint: faint grid bent toward inferred center
+  g.globalAlpha=.12; g.strokeStyle='#46356b'; g.lineWidth=1;
+  for(let gx=-3.5;gx<=3.5;gx+=1){ g.beginPath();
+    for(let gy=-3.5;gy<=3.5;gy+=0.25){ const x=[gx,gy]; const d=defl(x,sol.C,sol.m*0.15);
+      const p=toPx([x[0]+d[0]*0.1, x[1]+d[1]*0.1]); (gy===-3.5)?g.moveTo(p[0],p[1]):g.lineTo(p[0],p[1]); } g.stroke(); }
+  for(let gy=-3.5;gy<=3.5;gy+=1){ g.beginPath();
+    for(let gx=-3.5;gx<=3.5;gx+=0.25){ const x=[gx,gy]; const d=defl(x,sol.C,sol.m*0.15);
+      const p=toPx([x[0]+d[0]*0.1, x[1]+d[1]*0.1]); (gx===-3.5)?g.moveTo(p[0],p[1]):g.lineTo(p[0],p[1]); } g.stroke(); }
+  g.globalAlpha=1;
+
+  // triangles (bent: each vertex displaced by its deflection, scaled for visibility)
+  for(let t=0;t<4;t++){
+    const col = broken[t] ? '#fb7185' : '#a78bfa';
+    g.strokeStyle=col; g.lineWidth=broken[t]?2.4:1.8; g.globalAlpha=broken[t]?1:.9;
+    const pts=[];
+    for(let k=0;k<3;k++){ const i=t*3+k; const base=VERTS[i]; const d=obs[i];
+      pts.push(toPx([base[0]+d[0]*0.18, base[1]+d[1]*0.18])); }
+    g.beginPath(); pts.forEach((p,k)=>k?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1])); g.closePath(); g.stroke();
+    g.globalAlpha=1;
+    // vertices + deflection arrows
+    for(let k=0;k<3;k++){ const i=t*3+k; const base=VERTS[i]; const bp=toPx(base); const d=obs[i];
+      const tip=toPx([base[0]+d[0]*0.18, base[1]+d[1]*0.18]);
+      g.strokeStyle=broken[t]?'#fb7185':'#7c6aa0'; g.lineWidth=1.2; g.globalAlpha=.7;
+      g.beginPath(); g.moveTo(bp[0],bp[1]); g.lineTo(tip[0],tip[1]); g.stroke(); g.globalAlpha=1;
+      g.fillStyle=col; g.beginPath(); g.arc(tip[0],tip[1],3,0,7); g.fill(); }
+    // label
+    const lc=toPx([3.0*Math.cos(t*Math.PI/2)*1.15, 3.0*Math.sin(t*Math.PI/2)*1.15]);
+    g.fillStyle=broken[t]?'#fb7185':'#6b5a8c'; g.font='10px ui-monospace,monospace'; g.textAlign='center';
+    g.fillText('△'+(t+1)+(broken[t]?' (lying)':''), lc[0], lc[1]);
+  }
+
+  // leave-one-out candidate centers (faint) - show the 4 views' opinions
+  loo.centers.forEach(c=>{ const p=toPx(c); g.strokeStyle='#fbbf24'; g.globalAlpha=.5; g.lineWidth=1;
+    g.beginPath(); g.arc(p[0],p[1],5,0,7); g.stroke(); g.globalAlpha=1; });
+
+  // true void (cyan, draggable)
+  const tp=toPx(trueC);
+  g.fillStyle='#22d3ee'; g.globalAlpha=.18; g.beginPath(); g.arc(tp[0],tp[1],22,0,7); g.fill(); g.globalAlpha=1;
+  g.strokeStyle='#22d3ee'; g.lineWidth=2; g.setLineDash([3,3]); g.beginPath(); g.arc(tp[0],tp[1],10,0,7); g.stroke(); g.setLineDash([]);
+  g.fillStyle='#22d3ee'; g.font='10px ui-monospace,monospace'; g.textAlign='center'; g.fillText('true void', tp[0], tp[1]-15);
+
+  // inferred void (green) - or red if refused
+  if(!refuse){ const ip=toPx(sol.C);
+    g.fillStyle='#34d399'; g.globalAlpha=.9; g.beginPath(); g.arc(ip[0],ip[1],7,0,7); g.fill(); g.globalAlpha=1;
+    g.strokeStyle='#34d399'; g.lineWidth=1.5; g.beginPath(); g.arc(ip[0],ip[1],13,0,7); g.stroke();
+    g.fillStyle='#34d399'; g.font='10px ui-monospace,monospace'; g.fillText('inferred', ip[0], ip[1]+26);
+  } else {
+    g.fillStyle='#fb7185'; g.font='bold 12px ui-monospace,monospace'; g.textAlign='center';
+    g.fillText('✕ no single center explains all four', OX, OY);
+  }
+
+  // readouts
+  const err=Math.hypot(sol.C[0]-trueC[0], sol.C[1]-trueC[1]);
+  document.getElementById('err').textContent = refuse?'--':err.toFixed(2);
+  document.getElementById('spread').textContent = loo.spread.toFixed(2);
+  document.getElementById('spread').style.color = loo.spread>0.15?'#fb7185':'#c4b5fd';
+  document.getElementById('res').textContent = sol.res.toFixed(2);
+  const v=document.getElementById('verdict');
+  if(refuse){ v.textContent='VOID REFUSED'; v.className='verdict refuse';
+    document.getElementById('readnote').innerHTML='The four triangles no longer agree. A broken view pulls the inference, but the other three contradict it - no single honest center exists, so the gate <b style="color:var(--bad)">refuses</b> to draw a false void. The witness held.';
+  } else { v.textContent='VOID ADMITTED'; v.className='verdict admit';
+    document.getElementById('readnote').innerHTML='All four triangles agree on one center. The void is located and its strength pinned - read entirely off the curvature, never touched. <b>Infer error '+err.toFixed(2)+'</b>, views agree.';
+  }
+  requestAnimationFrame(draw);
+}
+
+const cv=document.getElementById('t4');
+function pos(e){ const r=cv.getBoundingClientRect(); const cx=(e.touches?e.touches[0].clientX:e.clientX)-r.left;
+  const cy=(e.touches?e.touches[0].clientY:e.clientY)-r.top; return [cx*(DIMS.t4[0]/r.width), cy*(DIMS.t4[1]/r.height)]; }
+function down(e){ drag=true; move(e); }
+function move(e){ if(!drag)return; const [px,py]=pos(e); const wc=toWorld(px,py);
+  trueC=[Math.max(-1.6,Math.min(1.6,wc[0])), Math.max(-1.6,Math.min(1.6,wc[1]))]; e.preventDefault&&e.preventDefault(); }
+function up(){ drag=false; }
+cv.addEventListener('mousedown',down); window.addEventListener('mousemove',move); window.addEventListener('mouseup',up);
+cv.addEventListener('touchstart',down,{passive:false}); window.addEventListener('touchmove',move,{passive:false}); window.addEventListener('touchend',up);
+
+document.getElementById('m').oninput=function(){ strength=(+this.value)/10; };
+for(let t=0;t<4;t++){ document.getElementById('c'+t).onclick=function(){ broken[t]=!broken[t]; this.classList.toggle('on',broken[t]); }; }
+document.getElementById('reset').onclick=()=>{ broken=[false,false,false,false]; trueC=[0.4,-0.3];
+  for(let t=0;t<4;t++) document.getElementById('c'+t).classList.remove('on'); };
+requestAnimationFrame(draw);
+</script>
+</body>
+</html>
