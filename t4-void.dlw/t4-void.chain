@@ -4,6 +4,6 @@ slug  : t4-void
 seal  : 79744e9c1de6669fea58a723491665fa4ce9fcf0f5d5f2113d22482985f0b35e
 prev  : 449ec85a0454d083f1ca11a349791fbd708fb9281b9e10f29cbff8c92e622cdc
 link  : 62496bee09c27418166eec0c7121c07810553dbd366fea12993fb0a00f6071e7
-head  : 3447d3a0533aaf1e29a8bdc67a9774884fb3ae9dbc8a17064b7a008ca3c4ec90
+head  : 13f9ace173ef2e60af38912ba329b4afcb5a38b84a0e4495e8d30327f8c99cc2
 
 — the tether: link = sha256(index|slug|seal|prev). the chain head commits to the whole corpus.
